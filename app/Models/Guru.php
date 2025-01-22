@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Kelas;
+use App\Models\JadBel;
 use Illuminate\Database\Eloquent\Model;
 
 class Guru extends Model

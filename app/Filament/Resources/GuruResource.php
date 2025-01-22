@@ -5,18 +5,16 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use App\Models\Guru;
 use Filament\Tables;
+use Pages\CreateGuru;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use App\Filament\Resources\GuruResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\GuruResource\RelationManagers;
 
 class GuruResource extends Resource
 {

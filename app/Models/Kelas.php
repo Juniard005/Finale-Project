@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Guru;
+use App\Models\Periode;
 use Illuminate\Database\Eloquent\Model;
 
 class Kelas extends Model

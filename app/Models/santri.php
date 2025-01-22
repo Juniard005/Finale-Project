@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Kelas;
+use App\Models\Pekerjaan;
 use Illuminate\Database\Eloquent\Model;
 
 class santri extends Model
