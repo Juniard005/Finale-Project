@@ -8,9 +8,10 @@ use Filament\Widgets;
 use Filament\PanelProvider;
 use App\Filament\Pages\Dashboard;
 use Filament\Support\Colors\Color;
+
 use Filament\Navigation\NavigationItem;
-use App\Filament\Pages\Auth\LoginCustom;
 use App\Filament\Resources\GuruResource;
+use App\Filament\Resources\UserResource;
 use Filament\Navigation\NavigationGroup;
 use App\Filament\Resources\KelasResource;
 use App\Filament\Resources\JadBelResource;
@@ -95,8 +96,10 @@ class AdminPanelProvider extends PanelProvider
                         ->items([
                             ...RoleResource::getNavigationItems(),
                             ...PermissionResource::getNavigationItems(),
+                            ...UserResource::getNavigationItems(),
                         ]),
                 ]);
-            });;
+            })
+            ->databaseNotifications();
     }
 }

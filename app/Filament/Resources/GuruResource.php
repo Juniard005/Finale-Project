@@ -20,7 +20,7 @@ class GuruResource extends Resource
 {
     protected static ?string $model = Guru::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
     protected static ?string $navigationLabel = 'Guru Atau Pengajar';
 
