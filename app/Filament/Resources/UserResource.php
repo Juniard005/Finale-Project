@@ -44,7 +44,7 @@ class UserResource extends Resource
                             ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
                             ->dehydrated(fn (?string $state): bool => filled($state))
                             ->required(),
-                        Select::make('role')->multiple()->relationship('roles', 'name'),
+                        Select::make('roles')->multiple()->relationship('roles', 'name'),
                     ])
             ]);
     }

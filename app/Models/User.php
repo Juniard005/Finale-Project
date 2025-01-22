@@ -48,8 +48,8 @@ class User extends Authenticatable // implements MustVerifyEmail
         ];
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class , 'model_has_roles', 'model_id', 'role_id');
-    }
+    // public function roles()
+    // {
+    //     return $this->belongsToMany(Role::class , 'model_has_roles', 'model_id', 'role_id');
+    // }
 }
