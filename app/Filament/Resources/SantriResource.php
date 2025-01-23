@@ -123,6 +123,7 @@ class SantriResource extends Resource
             'index' => Pages\ListSantris::route('/'),
             'create' => Pages\CreateSantri::route('/create'),
             'edit' => Pages\EditSantri::route('/{record}/edit'),
+            // 'show' => Pages\ShowSantri::route('/show/{id}')
         ];
     }
 }
