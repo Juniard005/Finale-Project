@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\User;
-
 use App\Models\Kelas;
 use Filament\Notifications\Notification;
 
