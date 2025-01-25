@@ -4,7 +4,10 @@ namespace App\Models;
 
 use App\Models\Guru;
 use App\Models\Periode;
+use App\Observers\JadBelObserver;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+#[ObservedBy([JadBelObserver::class])]
 
 class JadBel extends Model
 {
