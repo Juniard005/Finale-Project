@@ -103,6 +103,9 @@ class SantriResource extends Resource
                     Tables\Actions\ViewAction::make(),
                 ]),
             ])
+            // ->headerActions([
+            //     Tables\Actions\CreateAction::make(),
+            // ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
