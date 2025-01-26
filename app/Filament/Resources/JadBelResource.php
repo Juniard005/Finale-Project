@@ -10,9 +10,11 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
-use Filament\Pages\Actions\ActionGroup;
 use Filament\Tables\Columns\TextColumn;
+use App\Filament\Exports\JadBelExporter;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Resources\JadBelResource\Pages;
 
 class JadBelResource extends Resource
@@ -69,7 +71,8 @@ class JadBelResource extends Resource
                     ->label('Guru'),
             ])
             ->filters([
-                //
+                // SelectFilter::make('nama_kelas')
+                //     ->options(JadBel::pluck('nama_kelas'))
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
@@ -80,8 +83,12 @@ class JadBelResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    ExportBulkAction::make()->exporter(JadBelExporter::class),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                ExportAction::make()->exporter(JadBelExporter::class)
             ]);
     }
 

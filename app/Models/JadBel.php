@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Models\Guru;
-use App\Models\Periode;
-use App\Observers\JadBelObserver;
+use App\Models\Periode; // Ensure that the Periode class exists in this namespace
+use App\Observers\JadBelObserver; // Ensure that the JadBelObserver class exists in this namespace
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 #[ObservedBy([JadBelObserver::class])]
