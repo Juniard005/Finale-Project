@@ -89,11 +89,11 @@ class UserResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
-    {
-        $admin = User::whereHas('roles', function ($query) {
-            $query->where('name', 'admin');
-        })->get()->pluck('id');
-        return parent::getEloquentQuery()->whereNotIn('id', $admin);
-    }
+    // public static function getEloquentQuery(): Builder
+    // {
+    //     $admin = User::whereHas('roles', function ($query) {
+    //         $query->where('name', 'admin');
+    //     })->get()->pluck('id');
+    //     return parent::getEloquentQuery()->whereNotIn('id', $admin);
+    // }
 }
