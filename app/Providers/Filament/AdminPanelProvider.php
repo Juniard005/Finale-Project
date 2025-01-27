@@ -33,7 +33,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource;
-use Althinect\FilamentSpatieRolesPermissions\Resources\PermissionResource;
+use Althinect\FilamentSpatieRolesPermissions\Resources\PermissionResource; // Ensure this class exists in the specified path
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Filament\Resources\PeriodeResource; // Ensure this class exists in the specified path
 
@@ -75,38 +75,39 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
-                // FilamentSpatieRolesPermissionsPlugin::make(),
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
             ])
-            ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
-                return $builder->groups([
-                    NavigationGroup::make()
-                        ->items([
-                            NavigationItem::make('Dashboard')
-                            ->icon('heroicon-o-home')
-                            ->isActiveWhen(fn (): bool => request()->routeIs('filament.admin.pages.dashboard'))
-                            ->url(fn (): string => Dashboard::getUrl()),
-                        ]),
-                    NavigationGroup::make('Academic')
-                        ->items([
-                            ...SantriResource::getNavigationItems(),
-                            ...GuruResource::getNavigationItems(),
-                            ...KelasResource::getNavigationItems(),
-                            ...JadBelResource::getNavigationItems(),
-                        ]),
-                    NavigationGroup::make('Konfirgurasi')
-                        ->items([
-                            ...PekerjaanResource::getNavigationItems(),
-                            ...PeriodeResource::getNavigationItems(),
-                        ]),
-                    NavigationGroup::make('Setting')
-                        ->items([
-                            ...RoleResource::getNavigationItems(),
-                            ...PermissionResource::getNavigationItems(),
-                            ...UserResource::getNavigationItems(),
-                        ]),
-                ]);
-            })
+            // ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
+            //     return $builder->groups([
+            //         NavigationGroup::make()
+            //             ->items([
+            //                 NavigationItem::make('Dashboard')
+            //                 ->icon('heroicon-o-home')
+            //                 ->isActiveWhen(fn (): bool => request()->routeIs('filament.admin.pages.dashboard'))
+            //                 ->url(fn (): string => Dashboard::getUrl()),
+            //             ]),
+            //         NavigationGroup::make('Academic')
+            //             ->items([
+            //                 ...SantriResource::getNavigationItems(),
+            //                 ...GuruResource::getNavigationItems(),
+            //                 ...KelasResource::getNavigationItems(),
+            //                 ...JadBelResource::getNavigationItems(),
+            //             ]),
+            //         NavigationGroup::make('Konfirgurasi')
+            //             ->items([
+            //                 ...PekerjaanResource::getNavigationItems(),
+            //                 ...PeriodeResource::getNavigationItems(),
+            //             ]),
+            //         NavigationGroup::make('Setting')
+            //             ->items([
+            //                 ...UserResource::getNavigationItems(),
+            //                 NavigationItem::make('Roles') // Tambahkan Role secara manual
+            //                     ->icon('heroicon-o-shield-check')
+            //                     ->url(route('filament.admin.resources.shield.roles.index')) // URL ke halaman role
+            //                     ->isActiveWhen(fn (): bool => request()->routeIs('filament.resources.roles.*')), // Aktifkan ketika berada di halaman Role
+            //             ]),
+            //     ]);
+            // })
             ->databaseNotifications();
     }
 }
