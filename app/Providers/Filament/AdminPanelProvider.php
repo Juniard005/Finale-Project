@@ -9,20 +9,23 @@ use Filament\PanelProvider;
 use App\Filament\Pages\Dashboard;
 use Filament\Support\Colors\Color;
 
+use Filament\Widgets\AccountWidget;
 use Filament\Navigation\NavigationItem;
 use App\Filament\Resources\GuruResource;
 use App\Filament\Resources\UserResource;
 use Filament\Navigation\NavigationGroup;
+// use App\Filament\Resources\JadBelResource;
+use Filament\Widgets\FilamentInfoWidget;
 use App\Filament\Resources\KelasResource;
 use App\Filament\Resources\JadBelResource;
 use App\Filament\Resources\SantriResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Navigation\NavigationBuilder;
-use App\Filament\Resources\PeriodeResource;
 use App\Filament\Resources\PekerjaanResource;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Filament\Http\Middleware\AuthenticateSession;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -32,6 +35,7 @@ use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource;
 use Althinect\FilamentSpatieRolesPermissions\Resources\PermissionResource;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use App\Filament\Resources\PeriodeResource; // Ensure this class exists in the specified path
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -70,7 +74,10 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+            ->plugin(
+                // FilamentSpatieRolesPermissionsPlugin::make()
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+            )
             ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
                 return $builder->groups([
                     NavigationGroup::make()
