@@ -74,10 +74,10 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->plugin(
-                // FilamentSpatieRolesPermissionsPlugin::make()
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
-            )
+            ->plugins([
+                // FilamentSpatieRolesPermissionsPlugin::make(),
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+            ])
             ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
                 return $builder->groups([
                     NavigationGroup::make()

@@ -18,7 +18,7 @@ class JadBelObserver
         ->title('Data Mata Pelajaran Telah Terdaftar')
         ->body('Data Mata Pelajaran Berhasil Ditambahkan Hari Ini')
         ->sendToDatabase(User::whereHas('roles',function($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 
@@ -32,7 +32,7 @@ class JadBelObserver
         ->title('Data Mata Pelajaran Berhasil DiUpdate')
         ->body('Data Mata Pelajaran Berhasil DiUpdate Hari Ini')
         ->sendToDatabase(User::whereHas('roles',function($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 
@@ -46,7 +46,7 @@ class JadBelObserver
         ->title('Data Mata Pelajaran Telah Dihapus')
         ->body('Data Sebuah Mata Pelajaran Berhasil DiHapus')
         ->sendToDatabase(User::whereHas('roles',function($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 

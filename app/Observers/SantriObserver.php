@@ -18,7 +18,7 @@ class SantriObserver
         ->title('Santri Telah Terdaftar')
         ->body('Pendaftaran Santri Baru Sudah Berhasil.')
         ->sendToDatabase(User::whereHas('roles',function ($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 
@@ -32,7 +32,7 @@ class SantriObserver
         ->title('Data Santri Berhasil Diupdate')
         ->body('Data Santri Berhasil Diupdate.')
         ->sendToDatabase(User::whereHas('roles',function ($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 
@@ -46,7 +46,7 @@ class SantriObserver
         ->title('Santri Berhasil dihapus')
         ->body('Data Santri Berhasil Dihapus.')
         ->sendToDatabase(User::whereHas('roles',function ($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 

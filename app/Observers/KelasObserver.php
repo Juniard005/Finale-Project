@@ -18,7 +18,7 @@ class KelasObserver
         ->title('Data Kelas Telah Terdaftar')
         ->body('Data Sebuah Kelas Periode Baru Berhasil Ditambahkan')
         ->sendToDatabase(User::whereHas('roles',function($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 
@@ -32,7 +32,7 @@ class KelasObserver
         ->title('Data Kelas Telah DiUpdate')
         ->body('Data Sebuah Kelas Periode Tersebut Berhasil Di Update')
         ->sendToDatabase(User::whereHas('roles',function($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 
@@ -46,7 +46,7 @@ class KelasObserver
         ->title('Data Kelas Telah Dihapus')
         ->body('Data Sebuah Kelas Periode Lama Berhasil Dihapus')
         ->sendToDatabase(User::whereHas('roles',function($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 

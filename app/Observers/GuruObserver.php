@@ -18,7 +18,7 @@ class GuruObserver
         ->title('Data Guru Telah Terdaftar')
         ->body('Data Seorang Guru Berhasil Ditambahkan')
         ->sendToDatabase(User::whereHas('roles',function($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 
@@ -32,7 +32,7 @@ class GuruObserver
         ->title('Data Guru Behasil Di Update')
         ->body('Data Seorang Guru Berhasil DiUpdate')
         ->sendToDatabase(User::whereHas('roles',function($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 
@@ -46,7 +46,7 @@ class GuruObserver
         ->title('Data Guru Behasil Hapus')
         ->body('Data Seorang Guru Berhasil DiHapus')
         ->sendToDatabase(User::whereHas('roles',function($query){
-            $query->where('name','admin');
+            $query->where('name','super_admin');
         })->get());
     }
 
