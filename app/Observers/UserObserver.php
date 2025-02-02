@@ -17,7 +17,7 @@ class UserObserver
         ->title('User Telah Terdaftar')
         ->body('Pendaftaran User Baru Sudah Berhasil.')
         ->sendToDatabase(User::whereHas('roles',function ($query){
-            $query->where('name','super_admin');
+            $query->where('name','super_admin',);
         })->get());
     }
 
