@@ -25,6 +25,6 @@ class Kelas extends Model
 
     public function santri()
     {
-        return $this->hasOne(Santri::class, 'kelas_id', 'id');
+        return $this->hasMany(Santri::class, 'kelas_id', 'id');
     }
 }

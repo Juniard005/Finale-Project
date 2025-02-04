@@ -12,7 +12,10 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use App\Filament\Exports\PeriodeExporter;
+use Filament\Tables\Actions\ExportAction;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Resources\PeriodeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PeriodeResource\RelationManagers;
@@ -50,6 +53,10 @@ class PeriodeResource extends Resource
                     ->searchable()
                     ->label('Nama Periode'),
             ])
+            ->contentGrid([
+                'md' => 1,
+            ])
+            ->striped()
             ->filters([
                 //
             ])
@@ -61,8 +68,12 @@ class PeriodeResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    ExportBulkAction::make()->exporter(PeriodeExporter::class),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                ExportAction::make()->exporter(PeriodeExporter::class)
             ]);
     }
 

@@ -70,6 +70,10 @@ class JadBelResource extends Resource
                     ->searchable()
                     ->label('Guru'),
             ])
+            ->contentGrid([
+                'md' => 1,
+            ])
+            ->striped()
             ->filters([
                 // SelectFilter::make('nama_kelas')
                 //     ->options(JadBel::pluck('nama_kelas'))

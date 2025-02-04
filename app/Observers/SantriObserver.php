@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\User;
 use App\Models\Santri;
+use Illuminate\Support\Facades\Log;
 use Filament\Notifications\Notification;
 
 class SantriObserver
@@ -20,6 +21,11 @@ class SantriObserver
         ->sendToDatabase(User::whereHas('roles',function ($query){
             $query->where('name','super_admin');
         })->get());
+
+        if ($santri->kelas) {
+            $santri->kelas->decrement('kapasitas');
+            Log::info("Santri {$santri->id} ditambahkan, kapasitas kelas {$santri->kelas->id} berkurang.");
+        }
     }
 
     /**
@@ -48,6 +54,11 @@ class SantriObserver
         ->sendToDatabase(User::whereHas('roles',function ($query){
             $query->where('name','super_admin');
         })->get());
+
+        if ($santri->kelas) {
+            $santri->kelas->increment('kapasitas');
+            Log::info("Santri {$santri->id} dihapus, kapasitas kelas {$santri->kelas->id} bertambah.");
+        }
     }
 
     /**

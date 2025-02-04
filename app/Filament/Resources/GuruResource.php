@@ -11,9 +11,12 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
+use App\Filament\Exports\GuruExporter;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Resources\GuruResource\Pages;
 
 class GuruResource extends Resource
@@ -81,6 +84,10 @@ class GuruResource extends Resource
                 TextColumn::make('tempat_lahir')->hidden(),
                 TextColumn::make('tanggal_lahir')->hidden(),
             ])
+            ->contentGrid([
+                'md' => 1,
+            ])
+            ->striped()
             ->filters([
                 //
             ])
@@ -94,7 +101,11 @@ class GuruResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    ExportBulkAction::make()->exporter(GuruExporter::class),
                 ]),
+            ])
+            ->headerActions([
+                ExportAction::make()->exporter(GuruExporter::class)
             ]);
     }
 

@@ -22,4 +22,22 @@ class santri extends Model
     {
         return $this->belongsTo(Kelas::class, 'kelas_id', 'id');
     }
+
+    protected static function boot()
+    {
+
+        parent::boot();
+
+        static::created(function ($santri) {
+            if ($santri->kelas) {
+                $santri->kelas()->decrement('kapasitas');
+            }
+        });
+
+        static::deleted(function ($santri) {
+            if ($santri->kelas) {
+                $santri->kelas()->increment('kapasitas');
+            }
+        });
+    }
 }

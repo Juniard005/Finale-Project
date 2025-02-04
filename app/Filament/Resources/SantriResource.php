@@ -11,8 +11,11 @@ use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
+use App\Filament\Exports\SantriExporter;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Resources\SantriResource\Pages;
 
 class SantriResource extends Resource
@@ -93,23 +96,30 @@ class SantriResource extends Resource
                 TextColumn::make('nama_ibu')->hidden(),
                 TextColumn::make('Pekerjaan.nama_pekerjaan')->hidden(),
             ])
+            ->contentGrid([
+                'md' => 1,
+            ])
+            ->striped()
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
                     Tables\Actions\ViewAction::make(),
                 ]),
             ])
-            // ->headerActions([
-            //     Tables\Actions\CreateAction::make(),
-            // ])
+            ->headerActions([
+                ExportBulkAction::make()->exporter(SantriExporter::class),
+            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    ExportBulkAction::make()->exporter(SantriExporter::class),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                ExportAction::make()->exporter(SantriExporter::class)
             ]);
     }
 

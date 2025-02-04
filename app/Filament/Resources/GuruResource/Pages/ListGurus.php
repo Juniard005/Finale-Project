@@ -9,6 +9,8 @@ use App\Filament\Resources\GuruResource;
 use Maatwebsite\Excel\Facades\Excel;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
+use Filament\Resources\Components\Tab;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListGurus extends ListRecords
 {
@@ -39,5 +41,16 @@ class ListGurus extends ListRecords
         if($this->file != '') {
             Excel::import(new GurusImport, $this->file);
         }
+    }
+
+    public function getTabs(): array
+    {
+        return [
+            'all' => Tab::make('All Santri'),
+            'pria' => Tab::make('Pria')
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('jenis_kelamin', 'pria')),
+            'wanita' => Tab::make('Wanita')
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('jenis_kelamin', 'wanita')),
+        ];
     }
 }

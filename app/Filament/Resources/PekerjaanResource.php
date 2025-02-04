@@ -2,15 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PekerjaanResource\Pages;
-use App\Models\Pekerjaan;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Form;
+use App\Models\Pekerjaan;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Actions\ExportBulkAction;
+use Filament\Forms\Components\Card;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use App\Filament\Exports\PekerjaanExporter;
+use App\Filament\Resources\PekerjaanResource\Pages;
 
 class PekerjaanResource extends Resource
 {
@@ -45,6 +47,10 @@ class PekerjaanResource extends Resource
                     ->searchable()
                     ->label('Nama Pekerjaan'),
             ])
+            ->contentGrid([
+                'md' => 1,
+            ])
+            ->striped()
             ->filters([
                 //
             ])
@@ -57,8 +63,12 @@ class PekerjaanResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
+                    ExportBulkAction::make()->exporter(PekerjaanExporter::class),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->headerActions([
+                ExportBulkAction::make()->exporter(PekerjaanExporter::class),
             ]);
     }
 
