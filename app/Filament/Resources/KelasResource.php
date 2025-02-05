@@ -54,7 +54,7 @@ class KelasResource extends Resource
                             ->required(),
                         Select::make('periodes_id')
                             ->label('Periode')
-                            ->relationship('Periode','name_periode')
+                            ->relationship('Periode','nama_angkatan')
                             ->required(),
                     ])->columns(2),
             ]);
@@ -79,12 +79,9 @@ class KelasResource extends Resource
                TextColumn::make('Guru.nama_guru')
                     ->searchable()
                     ->label('Wali Kelas'),
-                TextColumn::make('Periode.name_periode')
+                TextColumn::make('Periode.nama_angkatan')
                     ->searchable()
                     ->label('Periode'),
-            ])
-            ->contentGrid([
-                'md' => 1,
             ])
             ->striped()
             ->filters([

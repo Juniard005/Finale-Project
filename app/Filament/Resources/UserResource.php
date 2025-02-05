@@ -60,9 +60,6 @@ class UserResource extends Resource
                 TextColumn::make('roles.name')
                     ->searchable(),
             ])
-            ->contentGrid([
-                'md' => 1,
-            ])
             ->striped()
             ->filters([
                 //

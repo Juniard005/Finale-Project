@@ -38,8 +38,8 @@ class PeriodeResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
-                        TextInput::make('name_periode')
-                            ->label('Nama Periode')
+                        TextInput::make('nama_angkatan')
+                            ->label('Nama Angkatan')
                             ->required(),
                     ]),
             ]);
@@ -49,12 +49,9 @@ class PeriodeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name_periode')
+                TextColumn::make('nama_angkatan')
                     ->searchable()
-                    ->label('Nama Periode'),
-            ])
-            ->contentGrid([
-                'md' => 1,
+                    ->label('Nama Angkatan'),
             ])
             ->striped()
             ->filters([

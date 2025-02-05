@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\SantriStatus;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use App\Filament\Resources\SantriResource;
+use Illuminate\Database\Migrations\Migration;
 use Symfony\Component\Console\Helper\TableRows;
 
 return new class extends Migration
@@ -18,6 +20,7 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
+            $table->enum('status', ['tarbiyah','skill','khidmat','magang','berkarya','keluar']);
             $table->text('alamat');
             $table->string('no_hp');
             $table->string('nama_ayah');

@@ -43,7 +43,7 @@ class JadBelResource extends Resource
                         ->required(),
                   Select::make('periodes_id')
                         ->label('Periode')
-                        ->relationship('Periode','name_periode')
+                        ->relationship('Periode','nama_angkatan')
                         ->required(),
                   Select::make('gurus_id')
                         ->label('Guru')
@@ -63,15 +63,12 @@ class JadBelResource extends Resource
                 TextColumn::make('nama_kelas')
                     ->searchable()
                     ->label('Nama Kelas'),
-                TextColumn::make('Periode.name_periode')
+                TextColumn::make('Periode.nama_angkatan')
                     ->searchable()
                     ->label('Periode'),
                 TextColumn::make('Guru.nama_guru')
                     ->searchable()
                     ->label('Guru'),
-            ])
-            ->contentGrid([
-                'md' => 1,
             ])
             ->striped()
             ->filters([

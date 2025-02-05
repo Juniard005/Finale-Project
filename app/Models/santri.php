@@ -5,12 +5,17 @@ namespace App\Models;
 use App\Models\Kelas;
 use App\Models\Pekerjaan;
 use App\Observers\SantriObserver;
+use App\Enums\SantriStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 #[ObservedBy([SantriObserver::class])]
 
 class santri extends Model
 {
+    protected $casts = [
+        'status' => SantriStatus::class,
+    ];
+
     protected $guarded = [];
 
     public function Pekerjaan()

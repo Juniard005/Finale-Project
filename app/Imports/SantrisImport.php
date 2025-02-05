@@ -19,12 +19,13 @@ class SantrisImport implements ToModel
             'jenis_kelamin' => $row[1],
             'tempat_lahir' => $row[2],
             'tanggal_lahir' => $row[3],
-            'alamat' => $row[4],
-            'no_hp' => $row[5],
-            'nama_ayah' => $row[6],
-            'nama_ibu' => $row[7],
-            'pekerjaans_id' => $row[8],
-            'kelas_id' => $row[9]
+            'status' => $row[4],
+            'alamat' => $row[5],
+            'no_hp' => $row[6],
+            'nama_ayah' => $row[7],
+            'nama_ibu' => $row[8],
+            'pekerjaans_id' => $row[9],
+            'kelas_id' => $row[10]
         ]);
     }
 }

@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\SantriStatus;
 use Filament\Tables;
 use App\Models\Santri;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
@@ -53,6 +55,10 @@ class SantriResource extends Resource
                         TextInput::make('no_hp')
                         ->numeric()
                         ->required(),
+                        ToggleButtons::make('status')
+                        ->inline()
+                        ->options(SantriStatus::class)
+                        ->required(),
                         Textarea::make('alamat')
                         ->required(),
                         TextInput::make('nama_ayah')
@@ -67,7 +73,7 @@ class SantriResource extends Resource
                         ->label('Kelas')
                         ->relationship('Kelas','nama_kelas')
                         ->required(),
-                    ])->columns(2),
+                    ])->columns(3),
             ]);
     }
 
@@ -87,6 +93,8 @@ class SantriResource extends Resource
                 TextColumn::make('tanggal_lahir')
                     ->searchable()
                     ->label('Tanggal Lahir'),
+                TextColumn::make('status')
+                    ->badge(),
                 TextColumn::make('Kelas.nama_kelas')
                     ->searchable()
                     ->label('Kelas'),
@@ -95,9 +103,6 @@ class SantriResource extends Resource
                 TextColumn::make('nama_ayah')->hidden(),
                 TextColumn::make('nama_ibu')->hidden(),
                 TextColumn::make('Pekerjaan.nama_pekerjaan')->hidden(),
-            ])
-            ->contentGrid([
-                'md' => 1,
             ])
             ->striped()
             ->filters([

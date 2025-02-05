@@ -47,9 +47,6 @@ class PekerjaanResource extends Resource
                     ->searchable()
                     ->label('Nama Pekerjaan'),
             ])
-            ->contentGrid([
-                'md' => 1,
-            ])
             ->striped()
             ->filters([
                 //

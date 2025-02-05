@@ -84,9 +84,6 @@ class GuruResource extends Resource
                 TextColumn::make('tempat_lahir')->hidden(),
                 TextColumn::make('tanggal_lahir')->hidden(),
             ])
-            ->contentGrid([
-                'md' => 1,
-            ])
             ->striped()
             ->filters([
                 //
