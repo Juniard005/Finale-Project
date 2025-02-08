@@ -22,4 +22,9 @@ class Guru extends Model
     {
         return $this->hasMany(JadBel::class, 'gurus_id', 'id');
     }
+
+    public function Absensi()
+    {
+        return $this->hasMany(Absensi::class, 'absensis_id', 'id');
+    }
 }

@@ -28,6 +28,11 @@ class santri extends Model
         return $this->belongsTo(Kelas::class, 'kelas_id', 'id');
     }
 
+    public function Absensi()
+    {
+        return $this->hasMany(Absensi::class, 'absensis_id', 'id');
+    }
+
     protected static function boot()
     {
 
