@@ -2,9 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\KegiatanStatus;
 use Illuminate\Database\Eloquent\Model;
 
-class kegiatan extends Model
+class Kegiatan extends Model
 {
-    //
+    protected $casts = [
+        'status' => KegiatanStatus::class,
+    ];
+
+    protected $guarded = [];
 }

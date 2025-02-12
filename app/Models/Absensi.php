@@ -20,8 +20,8 @@ class Absensi extends Model
         return $this->belongsTo(Santri::class, 'santris_id', 'id');
     }
 
-    public function Guru()
+    public function Periode()
     {
-        return $this->belongsTo(Guru::class, 'gurus_id', 'id');
+        return $this->belongsTo(Periode::class, 'periodes_id', 'id');
     }
 }

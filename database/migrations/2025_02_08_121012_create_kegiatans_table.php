@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_kegiatan');
             $table->string('waktu_pelaksanaan');
             $table->string('waktu_selesai');
-            $table->enums('status',['aktif','tidak_aktif']);
+            $table->enum('status',['aktif','tidak_aktif']);
             $table->timestamps();
         });
     }

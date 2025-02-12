@@ -19,4 +19,9 @@ class Periode extends Model
     {
         return $this->hasMany(JadBel::class, 'periodes_id', 'id');
     }
+
+    public function Absensi()
+    {
+        return $this->hasMany(Absensi::class, 'absensis_id', 'id');
+    }
 }

@@ -14,16 +14,15 @@ return new class extends Migration
         Schema::create('absensis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('santris_id');
-            $table->string('nama_kegiatan');
-            $table->string('waktu_kegiatan');
+            $table->unsignedBigInteger('periodes_id');
+            $table->date('tanggal');
             $table->enum('status',['hadir','sakit','izin','alpha']);
-            $table->unsignedBigInteger('gurus_id');
             $table->timestamps();
         });
 
         Schema::table('absensis', function (Blueprint $table) {
             $table->foreign('santris_id')->references('id')->on('santris')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('gurus_id')->references('id')->on('gurus')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('periodes_id')->references('id')->on('gurus')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

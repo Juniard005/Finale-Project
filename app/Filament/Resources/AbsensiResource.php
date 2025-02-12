@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use DateTime;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Absensi;
@@ -17,12 +18,10 @@ use Filament\Tables\Columns\Layout\Grid;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Components\DateTimePicker;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Forms\Components\CheckboxList;
+use Filament\Tables\Columns\CheckboxColumn;
 use App\Filament\Resources\AbsensiResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\AbsensiResource\RelationManagers;
 use App\Enums\AbsensiStatus; // Ensure this class exists in the specified namespace
 
 class AbsensiResource extends Resource
@@ -45,62 +44,47 @@ class AbsensiResource extends Resource
                         ->label('Nama Santri')
                         ->relationship('santri','nama')
                         ->required(),
-                        TextInput::make('nama_kegiatan')
-                        ->label('Nama Kegiatan')
-                        ->placeholder('Tolong Masukin Nama Kegiatanya Apa?')
+                        DatePicker::make('tanggal')
+                        ->label('Tanggal')
                         ->required(),
-                        DatePicker::make('waktu_kegiatan')
-                        ->label('Waktu Pelaksanaan')
-                        ->placeholder('Tolong Waktu Dilaksanakan Kegiatan!')
-                        ->required(),
-                        ToggleButtons::make('status')
-                        ->inline()
-                        ->options(AbsensiStatus::class)
-                        ->required(),
-                        Select::make('gurus_id')
-                        ->label('Nama Wali Kelas')
-                        ->relationship('Guru','nama_guru')
-                        ->placeholder('Nama Wali Kelas Siapa?')
+                        Select::make('status')
+                        ->columns(2)
+                        ->options(AbsensiStatus::class),
+                        Select::make('periodes_id')
+                        ->label('Nama Angkatan')
+                        ->relationship('Periode','nama_angkatan')
+                        ->placeholder('Tolong Isi Nama Angkatan Anda?')
                     ])->columns(2)
             ]);
     }
 
     public static function table(Table $table): Table
     {
+        $daysInMonth = Carbon::now()->daysInMonth;
+
         return $table
             ->columns([
-                Grid::make()
-                    ->columns(columns:1)
-                    ->schema([
-                        Split::make([
-                            Grid::make()
-                                ->columns(columns:1)
-                                ->schema([
-                                    TextColumn::make('santri.nama')
-                                        ->searchable()
-                                        ->label('Nama Santri')
-                                        ->width(120)
-                                ])->grow(false)
-                            ]),
-                            Stack::make([
-                                TextColumn::make('nama_kegiatan')
-                                    ->searchable()
-                                    ->label('Nama Kegiatan'),
-                                TextColumn::make('waktu_kegiatan')
-                                    ->searchable()
-                                    ->label('Waktu Pelaksanaan'),
-                                TextColumn::make('status')
-                                    ->searchable()
-                                    ->label('Status Saat Ini')
-                                    ->badge(),
-                                TextColumn::make('Guru.nama_guru')
-                                    ->searchable()
-                                    ->label('Nama Wali Kelas')
-                            ]),
-                    ]),
+                TextColumn::make('santri.nama')
+                ->label('Nama Santri')
+                ->sortable(),
+                TextColumn::make('Periode.nama_angkatan')
+                ->label('Nama Angkatan')
+                ->sortable(),
+
+                // Generate kolom tanggal secara dinamis
+                ...collect(range(1, $daysInMonth))->map(fn ($day) =>
+                    TextColumn::make("absensi_$day")
+                        ->label(str_pad($day, 2, '0', STR_PAD_LEFT))
+                        ->getStateUsing(function ($record) use ($day) {
+                            $tanggal = Carbon::now()->startOfMonth()->addDays($day - 1)->toDateString();
+                            $absen = Absensi::where('santris_id', $record->santris_id)
+                            ->where('tanggal', $tanggal)
+                            ->first();
+                            return $absen ? $absen->status : '?';
+                        })
+                        ->sortable()
+                )->toArray(),
             ])
-            ->contentGrid(['md' => 2,'xl' => 3,])
-            ->paginationPageOptions([9,18,27])
             ->striped()
             ->filters([
                 //
