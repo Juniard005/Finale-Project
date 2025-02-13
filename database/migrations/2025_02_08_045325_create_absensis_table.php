@@ -17,12 +17,13 @@ return new class extends Migration
             $table->unsignedBigInteger('periodes_id');
             $table->date('tanggal');
             $table->enum('status',['hadir','sakit','izin','alpha']);
+            $table->unique(['santris_id', 'periodes_id', 'tanggal','status']);
             $table->timestamps();
         });
 
         Schema::table('absensis', function (Blueprint $table) {
             $table->foreign('santris_id')->references('id')->on('santris')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('periodes_id')->references('id')->on('gurus')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('periodes_id')->references('id')->on('periodes')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

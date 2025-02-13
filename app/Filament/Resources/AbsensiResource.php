@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
+use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
@@ -83,6 +84,7 @@ class AbsensiResource extends Resource
                             return $absen ? $absen->status : '?';
                         })
                         ->sortable()
+                        // ->action(fn ($record) => redirect()->to("/admin/absensis/{$record->santris_id}/edit?tanggal=" . Carbon::now()->startOfMonth()->addDays($day - 1)->toDateString()))
                 )->toArray(),
             ])
             ->striped()
@@ -91,6 +93,28 @@ class AbsensiResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Action::make('tambahAbsensi')
+                ->label('Edit Absensi')
+                ->form([
+                    Forms\Components\Select::make('status')
+                        ->options(AbsensiStatus::class)
+                        ->required()
+                ])
+                ->action(function ($record, $data) {
+                    $tanggal = Carbon::now()->toDateString();
+
+                    Absensi::updateOrCreate(
+                        [
+                            'santris_id' => $record->santris_id,
+                            'tanggal' => $tanggal,
+                            'periodes_id' => $record->periodes_id,
+                        ],
+                        [
+                            'status' => $data['status'],
+                        ]
+                    );
+                }),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

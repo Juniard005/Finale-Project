@@ -30,4 +30,12 @@ enum AbsensiStatus: string implements HasLabel, HasColor
             self::Alpha => 'danger',
         };
     }
+
+    public static function casesToArray(): array
+    {
+    return array_combine(
+        array_map(fn($case) => $case->value, self::cases()),
+        array_map(fn($case) => $case->name, self::cases())
+    );
+    }
 }
